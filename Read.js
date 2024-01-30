@@ -19,11 +19,11 @@ export default function Read({ route }) {
             </BodyText>
             <BodyText>
                 <Text style={styles.fontWeight500}>Series: </Text>
-                <Text style={styles.fontWeight300}>{read.book.series.name}</Text>
+                <Text style={styles.fontWeight300}>{read.book.series?.name || '-'}</Text>
             </BodyText>
             <BodyText>
                 <Text style={styles.fontWeight500}>Order: </Text>
-                <Text style={styles.fontWeight300}>{read.book.seriesOrder}</Text>
+                <Text style={styles.fontWeight300}>{read.book.seriesOrder || '-'}</Text>
             </BodyText>
             <BodyText>
                 <Text style={styles.fontWeight500}>Genre: </Text>
