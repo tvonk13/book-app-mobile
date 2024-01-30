@@ -1,20 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Platform, NativeModules } from 'react-native';
+import Reads from './Reads';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function App() {
+  const { StatusBarManager } = NativeModules;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaView style={{...styles.container, paddingTop: Platform.OS === 'android' ? StatusBarManager.HEIGHT : 0}}>
+        <View style={styles.nav}>
+          <Text>NAV</Text>
+        </View>
+        <View style={styles.content}>
+          <Button title="HOME"/>
+          <Button title="TEST" />
+          <Reads />
+        </View>
+      </SafeAreaView>
+    </QueryClientProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+  },
+  nav: {
+    height: 50,
+    // backgroundColor: '#e0b0ab',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  content: {
+    flex: 1,
+    // backgroundColor: '#fff7eb',
+  }
 });
