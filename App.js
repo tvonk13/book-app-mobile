@@ -1,41 +1,55 @@
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { Platform, NativeModules } from 'react-native';
-import Reads from './Reads';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './Home';
+import Read from './Read';
 
 const queryClient = new QueryClient();
+const Stack = createNativeStackNavigator();
+const { StatusBarManager } = NativeModules;
 
 export default function App() {
-  const { StatusBarManager } = NativeModules;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaView style={{...styles.container, paddingTop: Platform.OS === 'android' ? StatusBarManager.HEIGHT : 0}}>
-        <View style={styles.nav}>
-          <Text>NAV</Text>
-        </View>
-        <View style={styles.content}>
-          <Button title="HOME"/>
-          <Button title="TEST" />
-          <Reads />
-        </View>
-      </SafeAreaView>
+        <NavigationContainer>
+          <SafeAreaView style={styles.safeAreaView}>
+              <Stack.Navigator>
+                <Stack.Screen 
+                  name="Home" 
+                  component={Home} 
+                  options={{ 
+                    // headerStyle: {backgroundColor: '#e0b0ab'},
+                    headerTintColor: '#4c0000',
+                    headerTitleStyle: {
+                      fontFamily: 'Roboto',
+                    },
+                  }}
+                />
+                <Stack.Screen 
+                  name="Read" 
+                  component={Read} 
+                  options={({ route }) => ({ 
+                    title: route.params.read.book.name,
+                    // headerStyle: {backgroundColor: '#e0b0ab'},
+                    headerTintColor: '#4c0000',
+                    headerTitleStyle: {
+                      fontFamily: 'Roboto',
+                    },
+                  })} 
+                />
+              </Stack.Navigator>
+          </SafeAreaView>
+        </NavigationContainer>
     </QueryClientProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  nav: {
-    height: 50,
-    // backgroundColor: '#e0b0ab',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    flex: 1,
-    // backgroundColor: '#fff7eb',
+  safeAreaView: {
+    flex: 1, 
+    paddingTop: Platform.OS === 'android' ? StatusBarManager.HEIGHT : 0,
   }
 });
