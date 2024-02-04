@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const baseEndpoint = 'https://book-api-image-2l4n4hnuga-uk.a.run.app';
 const readsEndpoint = baseEndpoint + '/reads';
+const booksEndpoint = baseEndpoint + '/books';
 const gcpBucketBaseEndpoint = `https://storage.googleapis.com/storage/v1/b/book-app-covers/o`;
 
 const fetchData = (method, endpoint, body) =>
@@ -20,6 +21,11 @@ const useGetReads = () => useQuery({
     queryFn: () => fetchData('GET', readsEndpoint)
 });
 
+const useGetBooks = () => useQuery({
+    queryKey: ['books'],
+    queryFn: () => fetchData('GET', booksEndpoint)
+});
+
 const useGetBookCovers = () => useQuery({
     queryKey: ['covers'],
     queryFn: () => fetch(`${gcpBucketBaseEndpoint}?delimiter=/`, { method: "GET" }).then((response) => response.json().then((res) => res)),
@@ -27,5 +33,6 @@ const useGetBookCovers = () => useQuery({
 
 export {
     useGetReads,
+    useGetBooks,
     useGetBookCovers
 }

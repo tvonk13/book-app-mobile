@@ -8,9 +8,9 @@ export default function Read({ route }) {
 
     return (
         <ScrollView style={styles.content}>
-            <Image source={{uri: cover?.mediaLink }} style={{width, height, margin: 10, borderRadius: 5 }} />
+            <Image source={{ uri: cover?.mediaLink }} style={{ width, height, margin: 10, borderRadius: 5 }} />
             <BodyText>
-                <Text style={styles.fontWeight500}>ID: </Text> 
+                <Text style={styles.fontWeight500}>ID: </Text>
                 <Text style={styles.fontWeight300}>{read.id}</Text>
             </BodyText>
             <BodyText>
@@ -52,9 +52,9 @@ export default function Read({ route }) {
 
 const styles = StyleSheet.create({
     content: {
-      flex: 1,
-      marginTop: 10,
-      marginHorizontal: 10,
+        flex: 1,
+        marginTop: 10,
+        marginHorizontal: 10,
     },
     fontWeight500: {
         fontWeight: '500',
