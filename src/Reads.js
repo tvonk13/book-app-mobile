@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     wrapper: {
         alignItems: 'center',
         flex: 1,
-        paddingTop: 10,
+        paddingTop: 20,
     },
     loading: {
         display: 'flex',

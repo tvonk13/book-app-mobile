@@ -1,7 +1,7 @@
 import Reads from './Reads';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import New from './New';
+import New from './New/New';
 import { useTheme } from 'react-native-paper';
 
 const Tab = createMaterialBottomTabNavigator();
